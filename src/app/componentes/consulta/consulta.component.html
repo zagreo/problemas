@@ -1,0 +1,24 @@
+
+<categorias [categorias]="taxones" (cambio)="cambioConsulta()"></categorias>
+  <listaproblemas [problemas]="problemas"></listaproblemas>
+<div class="container " *ngIf="paginas&&paginas.length>1">
+  <nav aria-label="Problemas navigación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" *ngIf="pagactual!=1">
+        <a class="page-link" (click)="cambioPagina(pagactual-1)" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item" *ngFor="let pag of paginas;let i=index" [class.active]="pagactual==i+1">
+        <a class="page-link" (click)="cambioPagina(i+1)">{{i+1}}</a>
+      </li>
+      <li class="page-item" *ngIf="pagactual!=paginas.length">
+        <a class="page-link" (click)="cambioPagina(pagactual+1)" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,31 @@
+<div class="card-block">
+  <div class="card-title">
+    Categorías
+  </div>
+  <div class="row" *ngIf="!categorias || categorias.length==0">
+    <div class="col-md-5">
+      No hay categorías asignadas
+    </div>
+  </div>
+  <div class="row" *ngFor="let categoria of categorias; let i=index">
+    <div class="col-md-1">
+      {{ i+1 }}
+    </div>
+    <div class="col-md-3 bg-primary">
+      {{ categoria.nombre }}
+    </div>
+  </div>
+  <div class="row" *ngIf="agregacat; then agregar; else boton">
+
+  </div>
+  <ng-template #boton>
+    <button type="button" class="btn btn-outline-primary" (click)="agregacat=true">Añadir</button>
+  </ng-template>
+  <ng-template #agregar>
+
+    <navegacat [categoria]="'Raíz'" (asignada)="asignaCategoria($event)"></navegacat>
+
+    <button type="button" class="btn btn-outline-primary" (click)="agregacat=false">Volver</button>
+  </ng-template>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <p>Editor del párametro</p>
+  </div>
+  <form class="">
+
+    <div class="form-group row">
+      <label class="mr-sm-2" for="nombre">Nombre </label>
+      <input class="form-control form-control-sm col-md-2" type="text" name="nombre"
+            [(ngModel)]="parametro.nombre">
+
+      <label class="mr-sm-2" for="tipo">Tipo</label>
+      <select class="form-control form-control-sm col-md-2" name="tipo" [(ngModel)]="parametro.tipo" (change)="cambiaTipo()">
+        <option value="sin definir"></option>
+        <option *ngFor="let tipo of tipos; let i=index" [value]="i">{{tipo}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" [ngSwitch]="parametro.tipo">
+      <label class="mr-sm-2" for="generador">Generador </label>
+      <div *ngSwitchCase="0">
+        <input class="form-control form-control-sm col-md-2" type="text" name="generador" [(ngModel)]="parametro.generador">
+      </div>
+      <div *ngSwitchCase="1">
+        <label class="mr-sm-2" for="modo"> Modo </label>
+        <select class="form-control form-control-sm col-md-2" name="modo" [(ngModel)]="parametro.generador.modo" >
+          <option value="0">aleatorio</option>
+          <option value="1">secuencial</option>
+        </select>
+        <div class="">
+          <span class="btn btn-outline-info btn-sm" (click)="cambiaRango()">  Rango: </span>
+          <span *ngIf="rango">
+            <label for="min">Mínimo</label><input type="text" name="min" size="4" [(ngModel)]="parametro.generador.min">
+            <label for="max">Máximo</label><input type="text" name="max" size="4" [(ngModel)]="parametro.generador.max">
+            <label for="in">Incremento</label><input type="text" name="in" size="4" [(ngModel)]="parametro.generador.in">
+          </span>
+        </div>
+        <div class="">
+          <span class="btn btn-outline-info btn-sm" (click)="cambiaDominio()">  Dominio: {{ parametro.generador.dominio | json }} </span>
+          <span *ngIf="!rango">
+            <label for="valor">Valor</label><input type="text" name="valor" size="6" #valor>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)="agregaValor(valor.value)" >Agregar</button>
+          </span>
+        </div>
+      </div>
+      <div *ngSwitchCase="2">
+        <!-- <label for="func" >Función: </label> -->
+        <textarea name="func" cols="60" rows="5" [(ngModel)]="parametro.generador.func">
+        </textarea>
+        <!-- <span class="btn btn-outline-info btn-sm">  Args: {{ parametro.generador.args | json }} </span>
+        <label for="valor">Argumento</label><input type="text" name="valor" size="4" #arg>
+        <button type="button" class="btn btn-outline-info btn-sm" (click)="agregArg(arg.value)" >Agregar</button> -->
+      </div>
+      <div *ngSwitchDefault>Sin definir</div>
+      <button type="button" class="btn btn-outline-info btn-sm" (click)="guardaParametro()">Guardar</button>
+    </div>
+
+
+  </form>
+</div>

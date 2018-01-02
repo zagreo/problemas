@@ -1,0 +1,52 @@
+<div class="card-block">
+  <div class="card-title">
+    Soluciones
+  </div>
+  <table class="table table-bordered table-info">
+    <thead>
+       <tr>
+         <th>#</th>
+         <th>Solución</th>
+         <th>Alta</th>
+         <th>Fuente/Autor</th>
+         <th>Acciones</th>
+       </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!soluciones || soluciones.length==0">
+        <td colspan="5">No hay soluciones asignadas</td>
+      </tr>
+      <tr *ngFor="let sol of soluciones; let i=index">
+        <ng-container *ngIf="editando!=i;else editor">
+          <td >
+            <button type="button" class="btn btn-primary" (click)="editando = i">
+              {{ i+1 }}
+            </button>
+          </td>
+          <td > <div [mathjax]="instancia.devInstanciaSol(i)"></div> </td>
+          <td> {{ sol.alta }} </td>
+          <td> {{ sol.fuente }} </td>
+          <td><button type="button" class="btn btn-danger" (click)="borraSol(i)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button></td>
+        </ng-container>
+        <ng-template #editor>
+          <td > {{ i+1 }} </td>
+          <td colspan="3">
+              <editortextomat [texto]="sol.texto" (guardar)="guardasol($event)"></editortextomat>
+          </td>
+        </ng-template>
+      </tr>
+      <tr *ngIf="agregasol; else boton">
+        <td colspan="5">
+          <editortextomat [texto]="nuevasol.texto" (guardar)="guardasol($event)"></editortextomat>
+          <button type="button" class="btn btn-outline-primary" (click)="agregasol=false">Volver</button>
+        </td>
+      </tr>
+      <ng-template #boton>
+        <button type="button" class="btn btn-outline-primary" (click)="agregasol=true">Añadir una Solución Nueva</button>
+      </ng-template>
+  </tbody>
+    </table>
+
+</div>

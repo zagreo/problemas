@@ -1,0 +1,47 @@
+
+  <div *ngIf="cat" class="container" style="margin-left:30px">
+    <div style="font-size:20px">
+
+      <i *ngIf="!abierta" class="fa fa-plus-circle" aria-hidden="true" (click)="abierta = true"></i>
+      <i *ngIf="abierta" class="fa fa-minus-circle" aria-hidden="true" (click)="abierta = false"></i>
+
+      <div class="d-inline" *ngIf="editar; then editor else etiqueta"></div>
+
+      <ng-template #etiqueta>
+        <span class="badge badge-pill badge-primary">{{cat.nombre}}</span>
+        <i *ngIf="cat._id!='56cb91bdc3464f14678934ca'" class="fa fa-edit text-primary pl-3" aria-hidden="true" (click)="editar=true"></i>
+        <button *ngIf="cat._id!='56cb91bdc3464f14678934ca'" type="button" class="btn btn-outline-danger btn-sm float-right "
+                (click)="eliminaCategoria()">
+                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+        </button>
+      </ng-template>
+
+      <ng-template #editor>
+
+        <!-- componente para editar categorías -->
+        <editorcat [catedit]="cat" (salida)="cancelaEditor($event)"></editorcat>
+
+      </ng-template>
+
+
+    </div>
+      <div *ngIf="abierta">
+        <categoria *ngFor="let hija of cat.hijas" [cat]="hija" (borrada)="refrescar($event)"></categoria>
+          <div *ngIf="catNueva; then formulario else boton "></div>
+
+          <ng-template #formulario>
+
+            <!-- componente para editar categorías -->
+            <editorcat [catedit]="catNueva" (salida)="cancelaEditor($event)"></editorcat>
+
+          </ng-template>
+
+          <ng-template #boton>
+            <button  type="button" class="btn btn-info btn-sm"
+                    (click)="agregarCategoria()">
+                    <i class="fa fa-file-o" aria-hidden="true"></i>
+            </button>
+          </ng-template>
+
+      </div>
+  </div>

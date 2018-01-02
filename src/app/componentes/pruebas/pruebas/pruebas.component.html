@@ -1,0 +1,14 @@
+<div class="card text-center" >
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item" *ngFor="let item of menu">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="[item.url]">{{ item.titulo }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-block" >
+
+    <router-outlet ></router-outlet>
+
+  </div>
+</div>

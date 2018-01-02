@@ -1,0 +1,51 @@
+<div class="card-block card-outline-success">
+  <div class="card-title">
+    Parámetros
+  </div>
+
+  <table class="table table-bordered table-info">
+    <thead>
+       <tr>
+         <th>#</th>
+         <th>Nombre</th>
+         <th>Tipo</th>
+         <th>Generador</th>
+         <th>Acciones</th>
+       </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngIf="!parametros || parametros.length==0">
+        <td colspan="5">No hay parámetros asignados</td>
+      </tr>
+       <tr *ngFor="let parametro of parametros; let i=index">
+         <ng-container *ngIf="editando!=i;else editor">
+           <td >
+             <button type="button" class="btn btn-primary" (click)="editando = i">
+               {{ i }}
+             </button>
+           </td>
+           <td > {{ parametro.nombre }} </td>
+           <td> {{ tipoparam[parametro.tipo] }} </td>
+           <td> {{ parametro.generador | json }} </td>
+           <td><button type="button" class="btn btn-danger" (click)="borraParametro(i)">
+             <i class="fa fa-trash" aria-hidden="true"></i>
+           </button></td>
+         </ng-container>
+         <ng-template #editor>
+           <td > {{ i }} </td>
+           <td colspan="3">
+             <editor-parametro [parametro]="parametro" (guardar)="guardaParametro($event)"></editor-parametro>
+           </td>
+         </ng-template>
+       </tr>
+       <tr>
+         <td colspan="5">
+           <button type="button" class="btn btn-outline-info" (click)="parametroNuevo()">Añadir Parámetro</button>
+         </td>
+       </tr>
+   </tbody>
+
+  </table>
+  
+</div>

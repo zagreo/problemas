@@ -6,7 +6,7 @@
 /out-tsc
 
 # dependencies
-/node_modules
+**/node_modules
 
 # IDEs and editors
 /.idea
@@ -35,9 +35,17 @@ testem.log
 yarn-error.log
 
 # e2e
+**/e2e
 /e2e/*.js
 /e2e/*.map
+
+#assets
+**/mathjax
+**/Repositorio
 
 # System Files
 .DS_Store
 Thumbs.db
+
+#examples
+**/examples

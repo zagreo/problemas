@@ -1,0 +1,18 @@
+<div class="container" *ngIf="problemas.length==0">
+  <h4>No hay problemas que mostrar</h4>
+</div>
+
+<div class="card" *ngIf="problemas.length>0">
+  <ul class="list-group ">
+    <li *ngFor="let problema of problemas;let i=index"
+     class="list-group-item list-group-item-action list-group-item-primary d-flex" [ngClass]="{'bg-primary text-white':problema._id==probselecto}">
+     <span class="badge badge-info">{{i+1}}</span>
+      <div  [mathjax]="problema.enunciado.texto" (click)="selecProblema(problema._id)"></div>
+      <!-- <hr>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary"
+                (click)="editarProblema(problema._id)"><i class="mdi mdi-create mdi-lg"></i></button>
+      </div> -->
+   </li>
+  </ul>
+</div>
